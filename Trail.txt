@@ -3,123 +3,51 @@ requestBody:
         content:
           application/json:
             example:
-              pan: "ABCDE1234F"
-              lite: "Y"
-              consent: "Y"
-              clientData:
-                caseId: "CASE123"
+              panList:
+                - "ABCDE1234F"
+                - "ABCDE1234G"
+                - "ABCDE1234H"
             schema:
               type: object
               required:
-                - pan
-                - consent
+                - panList
               properties:
-                pan:
-                  description: PAN number
-                  type: string
-                  minLength: 10
-                  maxLength: 10
-                lite:
-                  description: Lite flag
-                  type: string
-                  enum: ["Y", "N"]
-                consent:
-                  description: Consent flag
-                  type: string
-                  enum: ["Y", "N"]
-                clientData:
-                  type: object
-                  properties:
-                    caseId:
-                      description: Case ID
-                      type: string
-                      maxLength: 200
+                panList:
+                  description: List of PAN numbers
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                    minLength: 10
+                    maxLength: 10
 
       responses:
         "200":
-          description: PAN validation response
+          description: Bulk PAN validation response
           content:
             application/json:
               example:
-                requestId: "req-1234567890"
-                result:
-                  pan: "ABCDE1234F"
-                  name: "TEST USER"
-                  firstName: "TEST"
-                  middleName: "DATA"
-                  lastName: "USER"
-                  gender: "male"
-                  dob: "1990-01-01"
-                  address:
-                    buildingName: "SAMPLE APARTMENT"
-                    locality: "SAMPLE LOCALITY"
-                    streetName: "SAMPLE STREET"
-                    pinCode: "400001"
-                    city: "MUMBAI"
-                    state: "MAHARASHTRA"
-                    country: "INDIA"
-                  aadhaarLinked: null
-                  aadhaarMatch: null
-                  authorizedSignatory: {}
-                  profileMatch: []
-                statusCode: 101
-                clientData:
-                  caseId: "CASE123"
+                results:
+                  - pan: "ABCDE1234F"
+                    name: "TEST USER ONE"
+                  - pan: "ABCDE1234G"
+                    name: "TEST USER TWO"
+                  - pan: "ABCDE1234H"
+                    name: null
               schema:
                 type: object
+                required:
+                  - results
                 properties:
-                  requestId:
-                    type: string
-                  result:
-                    type: object
-                    properties:
-                      pan:
-                        type: string
-                      name:
-                        type: string
-                      firstName:
-                        type: string
-                      middleName:
-                        type: string
-                      lastName:
-                        type: string
-                      gender:
-                        type: string
-                      dob:
-                        type: string
-                        format: date
-                      address:
-                        type: object
-                        properties:
-                          buildingName:
-                            type: string
-                          locality:
-                            type: string
-                          streetName:
-                            type: string
-                          pinCode:
-                            type: string
-                          city:
-                            type: string
-                          state:
-                            type: string
-                          country:
-                            type: string
-                      aadhaarLinked:
-                        type: string
-                        nullable: true
-                      aadhaarMatch:
-                        type: string
-                        nullable: true
-                      authorizedSignatory:
-                        type: object
-                      profileMatch:
-                        type: array
-                        items: {}
-                  statusCode:
-                    type: integer
-                  clientData:
-                    type: object
-                    properties:
-                      caseId:
-                        type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - pan
+                      properties:
+                        pan:
+                          type: string
+                        name:
+                          type: string
+                          nullable: true
