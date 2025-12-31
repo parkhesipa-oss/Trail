@@ -31,3 +31,26 @@
 ├── init.sh
 ├── package.sh
 └── requirements.txt
+
+
+
+
+
+
+1. Setup
+
+To deploy an API to the DEV or UAT environment, follow the steps outlined below.
+An example Git repository is attached, which demonstrates the standard codebase and repository structure.
+
+You can create a new API by using the same structure in a new repository. The API folder from the reference repository can be copied and reused, with the necessary parameter changes made according to the new API requirements.
+
+The same approach is applicable to the following files, which should be copied and updated as needed:
+	•	api.properties
+	•	docker.sh
+	•	gav.properties
+	•	init.sh
+	•	package.sh
+	•	requirements.txt
+
+Ensure that all environment-specific and API-specific parameters are updated correctly before deployment.
+
